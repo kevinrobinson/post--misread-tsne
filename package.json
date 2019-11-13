@@ -7,7 +7,9 @@
   },
   "scripts": {
     "start": "serve public",
-    "build": " cp -rf node_modules/material-design-icons/iconfont/ public/ && node bin/include.js > public/index.html"
+    "build": "cp -rf node_modules/material-design-icons/iconfont/ public/ && node bin/include.js > public/index.html"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "jsdom": "^15.2.1"
+  }
 }
