@@ -3,8 +3,8 @@
 <link href="material-icons.css" rel="stylesheet">
 <script src="https://distill.pub/template.v1.js"></script>
 <script type="text/front-matter">
-  title: How to Use t-SNE Effectively
-  description: Although extremely useful for visualizing high-dimensional data, t-SNE plots can sometimes be mysterious or misleading.
+  title: How to Use UMAP Effectively
+  description: Although extremely useful for visualizing high-dimensional data, UMAP plots can sometimes be mysterious or misleading.
   authors:
     - Martin Wattenberg: http://hint.fm/
     - "Fernanda Viégas": http://hint.fm/
@@ -17,6 +17,7 @@
 
 <script src="assets/d3.min.js"></script>
 <script src="assets/tsne.js"></script>
+<script src="assets/umap.js"></script>
 <script src="assets/demo-configs.js"></script>
 <script src="assets/figure-configs.js"></script>
 <script src="assets/visualize.js"></script>
@@ -131,28 +132,28 @@ input[type=range]:focus::-ms-fill-upper {
 <dt-include src="assets/tray.html"></dt-include>
 
 <dt-article>
-  <h1 class="l-middle">How to Use t-SNE Effectively</h1>
-  <h2 class="l-middle">Although extremely useful for visualizing high-dimensional data, t-SNE plots can sometimes be mysterious or misleading. By exploring how t-SNE behaves in simple cases, we can learn to use it more effectively.</h2>
+  <h1 class="l-middle">How to Use <span style="text-decoration: line-through;">t-SNE</span>&nbsp;<b>UMAP</b> Effectively</h1>
+  <h2 class="l-middle">Although extremely useful for visualizing high-dimensional data, UMAP plots can sometimes be mysterious or misleading. By exploring how UMAP behaves in simple cases, we can learn to use it more effectively.</h2>
   <div class="l-page">
     <dt-include src="assets/playground.html"></dt-include>
   </div>
   <dt-byline></dt-byline>
-  <p>A popular method for exploring high-dimensional data is something called t-SNE, introduced by <dt-cite key="maaten2008visualizing">van der Maaten and Hinton in 2008</dt-cite>. The technique has become widespread in the field of machine learning, since it has an almost magical ability to create compelling two-dimensonal "maps" from data with hundreds or even thousands of dimensions.
+  <p>A popular method for exploring high-dimensional data is something called UMAP, introduced by <dt-cite key="maaten2008visualizing">van der Maaten and Hinton in 2008</dt-cite>. The technique has become widespread in the field of machine learning, since it has an almost magical ability to create compelling two-dimensonal "maps" from data with hundreds or even thousands of dimensions.
 Although impressive, these images can be tempting to misread. The purpose of this note is to prevent some common misreadings.</p>
 
-  <p>We'll walk through a series of simple examples to illustrate what t-SNE diagrams can and cannot show. The t-SNE technique really is useful—but only if you know how to interpret it.</p>
+  <p>We'll walk through a series of simple examples to illustrate what UMAP diagrams can and cannot show. The UMAP technique really is useful—but only if you know how to interpret it.</p>
 
-  <p>Before diving in: if you haven't encountered t-SNE before, here's what you need to know about the math behind it. The goal is to take a set of points in a high-dimensional space and find a faithful representation of those points in a lower-dimensional space, typically the 2D plane. The algorithm is non-linear and adapts to the underlying data, performing different transformations on different regions. Those differences can be a major source of confusion.</p>
+  <p>Before diving in: if you haven't encountered UMAP before, here's what you need to know about the math behind it. The goal is to take a set of points in a high-dimensional space and find a faithful representation of those points in a lower-dimensional space, typically the 2D plane. The algorithm is non-linear and adapts to the underlying data, performing different transformations on different regions. Those differences can be a major source of confusion.</p>
 
-  <p>A second feature of t-SNE is a tuneable parameter, "perplexity," which says (loosely) how to balance attention between local and global aspects of your data. The parameter is, in a sense, a guess about the number of close neighbors each point has. The perplexity value has a complex effect on the resulting pictures. The original paper says, <em>"The performance of SNE is fairly robust to changes in the perplexity, and typical values are between 5 and 50."</em> But the story is more nuanced than that. Getting the most from t-SNE may mean analyzing multiple plots with different perplexities.</p>
+  <p>A second feature of UMAP is a tuneable parameter, "perplexity," which says (loosely) how to balance attention between local and global aspects of your data. The parameter is, in a sense, a guess about the number of close neighbors each point has. The perplexity value has a complex effect on the resulting pictures. The original paper says, <em>"The performance of SNE is fairly robust to changes in the perplexity, and typical values are between 5 and 50."</em> But the story is more nuanced than that. Getting the most from UMAP may mean analyzing multiple plots with different perplexities.</p>
 
-  <p>That's not the end of the complications. The t-SNE algorithm doesn't always produce similar output on successive runs, for example, and there are additional hyperparameters related to the optimization process.</p>
+  <p>That's not the end of the complications. The UMAP algorithm doesn't always produce similar output on successive runs, for example, and there are additional hyperparameters related to the optimization process.</p>
 
   <hr />
 
   <h2>1. Those hyperparameters really matter</h2>
 
-  <p>Let's start with the "hello world" of t-SNE: a data set of two widely separated clusters. To make things as simple as possible, we'll consider clusters in a 2D plane, as shown in the lefthand diagram. (For clarity, the two clusters are color coded.) The diagrams at right show t-SNE plots for five different perplexity values.</p>
+  <p>Let's start with the "hello world" of UMAP: a data set of two widely separated clusters. To make things as simple as possible, we'll consider clusters in a 2D plane, as shown in the lefthand diagram. (For clarity, the two clusters are color coded.) The diagrams at right show UMAP plots for five different perplexity values.</p>
 
   <div class="l-page-outset tsne-group" id="figures-01" data-id="01">
   </div>
@@ -164,7 +165,7 @@ Although impressive, these images can be tempting to misread. The purpose of thi
   <div class="l-page-outset tsne-group" id="figures-02" data-id="02">
   </div>
 
-  <p>The images above show five different runs at perplexity 30. The first four were stopped before stability. After 10, 20, 60, and 120 steps you can see layouts with seeming 1-dimensional and even pointlike images of the clusters. If you see a t-SNE plot with strange "pinched" shapes, chances are the process was stopped too early. Unfortunately, there's no fixed number of steps that yields a stable result. Different data sets can require different numbers of iterations to converge.</p>
+  <p>The images above show five different runs at perplexity 30. The first four were stopped before stability. After 10, 20, 60, and 120 steps you can see layouts with seeming 1-dimensional and even pointlike images of the clusters. If you see a UMAP plot with strange "pinched" shapes, chances are the process was stopped too early. Unfortunately, there's no fixed number of steps that yields a stable result. Different data sets can require different numbers of iterations to converge.</p>
 
   <p>Another natural question is whether different runs with the same hyperparameters produce the same results. In this simple two-cluster example, and most of the others we discuss, multiple runs give the same global shape. Certain data sets, however, yield markedly different diagrams on different runs; we'll give an example of one of these later.</p>
 
@@ -172,17 +173,17 @@ Although impressive, these images can be tempting to misread. The purpose of thi
 
   <hr />
 
-  <h2>2. Cluster sizes in a t-SNE plot mean nothing</h2>
+  <h2>2. Cluster sizes in a UMAP plot mean nothing</h2>
 
-  <p>So far, so good. But what if the two clusters have different standard deviations, and so different sizes? (By size we mean bounding box measurements, not number of points.) Below are t-SNE plots for a mixture of Gaussians in plane, where one is 10 times as dispersed as the other.</p>
+  <p>So far, so good. But what if the two clusters have different standard deviations, and so different sizes? (By size we mean bounding box measurements, not number of points.) Below are UMAP plots for a mixture of Gaussians in plane, where one is 10 times as dispersed as the other.</p>
 
   <div class="l-page-outset tsne-group" id="figures-03" data-id="03">
   </div>
 
-  <p>Surprisingly, the two clusters look about same size in the t-SNE plots.
-  What's going on? The t-SNE algorithm adapts its notion of "distance" to regional density variations in the data set. As a result, it naturally expands dense clusters, and contracts sparse ones, evening out cluster sizes. To be clear, this is a different effect than the run-of-the-mill fact that any dimensionality reduction technique will distort distances. (After all, in this example all data was two-dimensional to begin with.) Rather, density equalization happens by design and is a predictable feature of t-SNE.</p>
+  <p>Surprisingly, the two clusters look about same size in the UMAP plots.
+  What's going on? The UMAP algorithm adapts its notion of "distance" to regional density variations in the data set. As a result, it naturally expands dense clusters, and contracts sparse ones, evening out cluster sizes. To be clear, this is a different effect than the run-of-the-mill fact that any dimensionality reduction technique will distort distances. (After all, in this example all data was two-dimensional to begin with.) Rather, density equalization happens by design and is a predictable feature of UMAP.</p>
 
-  <p>The bottom line, however, is that you cannot see relative sizes of clusters in a t-SNE plot.</p>
+  <p>The bottom line, however, is that you cannot see relative sizes of clusters in a UMAP plot.</p>
 
   <hr />
 
@@ -196,20 +197,20 @@ Although impressive, these images can be tempting to misread. The purpose of thi
   <p>At perplexity 50, the diagram gives a good sense of the global geometry. For lower perplexity values the clusters look equidistant. When the perplexity is 100, we see the global geometry fine, but one of the cluster appears, falsely, much smaller than the others.
   Since perplexity 50 gave us a good picture in this example, can we always set perplexity to 50 if we want to see global geometry?</p>
 
-  <p>Sadly, no. If we add more points to each cluster, the perplexity has to increase to compensate. Here are the t-SNE diagrams for three Gaussian clusters with 200 points each, instead of 50. Now none of the trial perplexity values gives a good result.</p>
+  <p>Sadly, no. If we add more points to each cluster, the perplexity has to increase to compensate. Here are the UMAP diagrams for three Gaussian clusters with 200 points each, instead of 50. Now none of the trial perplexity values gives a good result.</p>
 
   <div class="l-page-outset tsne-group" id="figures-05" data-id="05">
   </div>
 
   <p>It's bad news that seeing global geometry requires fine-tuning perplexity. Real-world data would probably have multiple clusters with different numbers of elements. There may not be one perplexity value that will capture distances across all clusters—and sadly perplexity is a global parameter. Fixing this problem might be an interesting area for future research.</p>
 
-  <p>The basic message is that distances between well-separated clusters in a t-SNE plot may mean nothing.</p>
+  <p>The basic message is that distances between well-separated clusters in a UMAP plot may mean nothing.</p>
 
   <hr />
 
   <h2>4. Random noise doesn't always look random.</h2>
 
-  <p>A classic pitfall is thinking you see patterns in what is really just random data. Recognizing noise when you see it is a critical skill, but it takes time to build up the right intuitions. A tricky thing about t-SNE is that it throws a lot of existing intuition out the window.
+  <p>A classic pitfall is thinking you see patterns in what is really just random data. Recognizing noise when you see it is a critical skill, but it takes time to build up the right intuitions. A tricky thing about UMAP is that it throws a lot of existing intuition out the window.
   The next diagrams show genuinely random data, 500 points drawn from a unit Gaussian distribution in 100 dimensions. The left image is a projection onto the first two coordinates.</p>
 
   <div class="l-page-outset tsne-group" id="figures-06" data-id="06">
@@ -217,9 +218,9 @@ Although impressive, these images can be tempting to misread. The purpose of thi
 
   <p>The plot with perplexity 2 seems to show dramatic clusters. If you were tuning perplexity to bring out structure in the data, you might think you'd hit the jackpot.</p>
 
-  <p>Of course, since we know the cloud of points was generated randomly, it has no statistically interesting clusters: those "clumps" aren't meaningful. If you look back at previous examples, low perplexity values often lead to this kind of distribution. Recognizing these clumps as random noise is an important part of reading t-SNE plots.</p>
+  <p>Of course, since we know the cloud of points was generated randomly, it has no statistically interesting clusters: those "clumps" aren't meaningful. If you look back at previous examples, low perplexity values often lead to this kind of distribution. Recognizing these clumps as random noise is an important part of reading UMAP plots.</p>
 
-  <p>There's something else interesting, though, which may be a win for t-SNE. At first the perplexity 30 plot doesn't look like a Gaussian distribution at all: there's only a slight density difference across different regions of the cloud, and the points seem suspiciously evenly distributed. In fact, these features are saying useful things about high-dimensional normal distributions, which are very close to uniform distributions on a sphere: evenly distributed, with roughly equal spaces between points. Seen in this light, the t-SNE plot is more accurate than any linear projection could be.</p>
+  <p>There's something else interesting, though, which may be a win for UMAP. At first the perplexity 30 plot doesn't look like a Gaussian distribution at all: there's only a slight density difference across different regions of the cloud, and the points seem suspiciously evenly distributed. In fact, these features are saying useful things about high-dimensional normal distributions, which are very close to uniform distributions on a sphere: evenly distributed, with roughly equal spaces between points. Seen in this light, the UMAP plot is more accurate than any linear projection could be.</p>
 
   <hr />
 
@@ -237,19 +238,19 @@ Although impressive, these images can be tempting to misread. The purpose of thi
 
   <p>For a certain range of perplexity the long clusters look close to correct, which is reassuring.</p>
 
-  <p>Even in the best cases, though, there's a subtle distortion: the lines are slightly curved outwards in the t-SNE diagram. The reason is that, as usual, t-SNE tends to expand denser regions of data. Since the middles of the clusters have less empty space around them than the ends, the algorithm magnifies them.</p>
+  <p>Even in the best cases, though, there's a subtle distortion: the lines are slightly curved outwards in the UMAP diagram. The reason is that, as usual, UMAP tends to expand denser regions of data. Since the middles of the clusters have less empty space around them than the ends, the algorithm magnifies them.</p>
 
   <hr />
 
   <h2>6. For topology, you may need more than one plot</h2>
 
-  <p>Sometimes you can read topological information off a t-SNE plot, but that typically requires views at multiple perplexities.
+  <p>Sometimes you can read topological information off a UMAP plot, but that typically requires views at multiple perplexities.
   One of the simplest topological properties is containment. The plots below show two groups of 75 points in 50 dimensional space. Both are sampled from symmetric Gaussian distributions centered at the origin, but one is 50 times more tightly dispersed than the other. The "small" distribution is in effect contained in the large one.</p>
 
   <div class="l-page-outset tsne-group" id="figures-09" data-id="09">
   </div>
 
-  <p>The perplexity 30 view shows the basic topology correctly, but again t-SNE greatly exaggerates the size of the smaller group of points. At perplexity 50, there's a new phenomenon: the outer group becomes a circle, as the plot tries to depict the fact that all its points are about the same distance from the inner group. If you looked at this image alone, it would be easy to misread these outer points as a one-dimensional structure.</p>
+  <p>The perplexity 30 view shows the basic topology correctly, but again UMAP greatly exaggerates the size of the smaller group of points. At perplexity 50, there's a new phenomenon: the outer group becomes a circle, as the plot tries to depict the fact that all its points are about the same distance from the inner group. If you looked at this image alone, it would be easy to misread these outer points as a one-dimensional structure.</p>
 
   <p>What about more complicated types of topology? This may be a subject dearer to mathematicians than to practical data analysts, but interesting low-dimensional structures are occasionally found in the wild.</p>
 
@@ -260,7 +261,7 @@ Although impressive, these images can be tempting to misread. The purpose of thi
   <div class="l-page-outset tsne-group" id="figures-11" data-id="11">
   </div>
 
-  <p>The trefoil knot is an interesting example of how multiple runs affect the outcome of t-SNE. Below are five runs of the perplexity-2 view.</p>
+  <p>The trefoil knot is an interesting example of how multiple runs affect the outcome of UMAP. Below are five runs of the perplexity-2 view.</p>
 
   <p>The algorithm settles twice on a circle, which at least preserves the intrinsic topology. But in three of the runs it ends up with three different solutions which introduce artificial breaks. Using the dot color as a guide, you can see that the first and third runs are far from each other.</p>
 
@@ -276,8 +277,8 @@ Although impressive, these images can be tempting to misread. The purpose of thi
 
   <h2>Conclusion</h2>
 
-  <p>There's a reason that t-SNE has become so popular: it's incredibly flexible, and can often find structure where other dimensionality-reduction algorithms cannot. Unfortunately, that very flexibility makes it tricky to interpret. Out of sight from the user, the algorithm makes all sorts of adjustments that tidy up its visualizations.
-  Don't let the hidden "magic" scare you away from the whole technique, though. The good news is that by studying how t-SNE behaves in simple cases, it's possible to develop an intuition for what's going on.</p>
+  <p>There's a reason that UMAP has become so popular: it's incredibly flexible, and can often find structure where other dimensionality-reduction algorithms cannot. Unfortunately, that very flexibility makes it tricky to interpret. Out of sight from the user, the algorithm makes all sorts of adjustments that tidy up its visualizations.
+  Don't let the hidden "magic" scare you away from the whole technique, though. The good news is that by studying how UMAP behaves in simple cases, it's possible to develop an intuition for what's going on.</p>
 
 
   <!-- bring the figures to life -->
@@ -300,7 +301,7 @@ Although impressive, these images can be tempting to misread. The purpose of thi
 
 <script type="text/bibliography">
 @article{maaten2008visualizing,
-  title={Visualizing data using t-SNE},
+  title={Visualizing data using UMAP},
   author={Maaten, Laurens van der and Hinton, Geoffrey},
   journal={Journal of Machine Learning Research},
   volume={9},

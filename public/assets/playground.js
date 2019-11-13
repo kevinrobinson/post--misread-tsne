@@ -32,8 +32,9 @@ var GLOBALS = {
   stepLimit: 5000,
   state: {},
   showDemo: null,
-  perplexitySlider: null,
-  epsilonSlider: null,
+  // perplexitySlider: null,
+  // epsilonSlider: null,
+  // seedSlider: null,
 }
 
 main();
@@ -54,6 +55,12 @@ function main() {
     GLOBALS.state = {
       perplexity: +getParam('perplexity', 10),
       epsilon: +getParam('epsilon', 5),
+      
+      nNeighbors: +getParam('nNeighbors', 15),
+      spread: +getParam('spread', 1.0),
+      minDist: +getParam('minDist', 0.1),
+
+      seed: +getParam('seed', 42),
       demo: +getParam('demo', 0),
       demoParams: getParam('demoParams', '20,2').split(',').map(Number)
     };
@@ -108,13 +115,26 @@ function main() {
 
   // Set up t-SNE UI.
   var tsneUI = document.getElementById('tsne-options');
-  var perplexitySlider = makeSlider(tsneUI, 'Perplexity', 2, 100,
-      GLOBALS.state.perplexity);
-  var epsilonSlider = makeSlider(tsneUI, 'Epsilon', 1, 20,
-      GLOBALS.state.epsilon);
+  // tsne
+  // var perplexitySlider = makeSlider(tsneUI, 'Perplexity', 2, 100,
+  //     GLOBALS.state.perplexity);
+  // var epsilonSlider = makeSlider(tsneUI, 'Epsilon', 1, 20,
+  //     GLOBALS.state.epsilon);
 
-  GLOBALS.perplexitySlider = perplexitySlider
-  GLOBALS.epsilonSlider = epsilonSlider
+  // umap
+  var nNeighborsSlider = makeSlider(tsneUI, 'Nearest neighbors', 5, 45,
+      GLOBALS.state.nNeighbors);
+  var minDistSlider = makeSlider(tsneUI, 'Minimal distance', 0.01, 0.25,
+      GLOBALS.state.minDist);
+  var spreadSlider = makeSlider(tsneUI, 'Spread', -1.0, 10.0,
+      GLOBALS.state.spread);
+  // var seedSlider = makeSlider(tsneUI, 'Seed', 1, 1000,
+  //     GLOBALS.state.seed);
+
+  // GLOBALS.perplexitySlider = perplexitySlider
+  // GLOBALS.epsilonSlider = epsilonSlider
+  // GLOBALS.seedSlider = seedSlider;
+
 
   // Controls for data options.
   var optionControls;
@@ -122,8 +142,14 @@ function main() {
 
   function updateParameters() {
     GLOBALS.state.demoParams = optionControls.map(function(s) {return s.value;});
-    GLOBALS.state.perplexity = perplexitySlider.value;
-    GLOBALS.state.epsilon = epsilonSlider.value;
+    // GLOBALS.state.perplexity = perplexitySlider.value;
+    // GLOBALS.state.epsilon = epsilonSlider.value;
+    
+    GLOBALS.state.nNeighbors = nNeighborsSlider.value;
+    GLOBALS.state.minDist = minDistSlider.value;
+    GLOBALS.state.spread = spreadSlider.value;
+    // GLOBALS.state.seed = seedSlider.value;
+    console.log('GLOBALS.state', GLOBALS.state);
 
     d3.select("#share").style("display", "")
       .attr("href", "#" + generateHash())

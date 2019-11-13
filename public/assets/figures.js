@@ -21,6 +21,7 @@ if(typeof require != "undefined") {
  var d3 = require('./d3.min.js')
  var visualize = require('./visualize.js').visualize
  var tsnejs = require('./tsne.js')
+ var UMAP = require('./umap.js')
  var demoConfigs = require('./demo-configs.js')
  var distanceMatrix = demoConfigs.distanceMatrix
  var Point = demoConfigs.Point
@@ -62,17 +63,18 @@ function demoMaker(points, canvas, options, stepCb) {
   var chunk = 1;
   var frameId;
 
-  var tsne = new tsnejs.tSNE(options);
-  var dists = distanceMatrix(points);
-  tsne.initDataDist(dists);
+  console.log('new');
+  var driver = new UmapDriver(options);
+  driver.init(points);
 
   function iterate() {
     if(paused) return;
 
     // control speed at which we iterate
-    if(step >= 200) chunk = 10;
+    // if(step >= 200) chunk = 10;
+    if(step >= 50) chunk = 5;
     for(var k = 0; k < chunk; k++) {
-      tsne.step();
+      driver.step();
       ++step;
     }
 
@@ -80,9 +82,10 @@ function demoMaker(points, canvas, options, stepCb) {
     stepCb(step)
 
     // update the solution and render
-    var solution = tsne.getSolution().map(function(coords, i) {
+    var solution = driver.getSolution().map(function(coords, i) {
       return new Point(coords, points[i].color);
     });
+    // console.log('solution[0]', solution[0]);
     visualize(solution, canvas, ""); //removed message
 
     //control the loop.
@@ -114,18 +117,19 @@ function demoMaker(points, canvas, options, stepCb) {
 }
 
 function runDemoSync(points, canvas, options, stepLimit, no3d) {
-  var tsne = new tsnejs.tSNE(options);
-  var dists = distanceMatrix(points);
-  tsne.initDataDist(dists);
+  var driver = new UmapDriver(options);
+  
+  driver.init(points);
   var step = 0;
   for(var k = 0; k < stepLimit; k++) {
     if(k % 100 === 0) console.log("step", step)
-    tsne.step();
+    driver.step();
     ++step;
   }
-  var solution = tsne.getSolution().map(function(coords, i) {
+  var solution = driver.getSolution().map(function(coords, i) {
     return new Point(coords, points[i].color);
   });
+
   visualize(solution, canvas, "", no3d); //removed message
   return step;
 }
@@ -136,3 +140,64 @@ if(typeof module != "undefined") module.exports = {
   getPoints: getPoints,
   FIGURES: FIGURES
 }
+
+
+/*
+var dists = distanceMatrix(points);
+
+var tsne = new tsnejs.tSNE(options);
+tsne.initDataDist(dists);
+var step = 0;
+for(var k = 0; k < stepLimit; k++) {
+  if(k % 100 === 0) console.log("step", step)
+  tsne.step();
+  ++step;
+}
+var solution = tsne.getSolution().map(function(coords, i) {
+  return new Point(coords, points[i].color);
+});
+*/
+function UmapDriver(options) {
+  this.options = options || {};
+}
+
+UmapDriver.prototype = {
+  init: function(points) {
+    console.log('init', this.options);
+    this.umap = new UMAP(this.options);
+    this.umap.initializeFit(points.map(p => p.coords));
+    return;
+  },
+
+  step: function() {
+    console.log('step');
+    this.umap.step();
+    return;
+  },
+
+  getSolution: function() {
+    return this.umap.getEmbedding();
+  }
+};
+
+function TsneDriver(options) {
+  this.options = options || {};
+}
+TsneDriver.prototype = {
+  init: function(points) {
+    var dists = distanceMatrix(points);
+    this.tsne = new tsnejs.tSNE(this.options);
+    this.tsne.initDataDist(dists);
+    return;
+  },
+
+  step: function() {
+    console.log('step');
+    this.tsne.step();
+    return;
+  },
+
+  getSolution: function() {
+    return this.tsne.getSolution();
+  }
+};

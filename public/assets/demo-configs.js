@@ -431,7 +431,11 @@ var demos = [
     options: [
       {
         name: 'Points Per Side',
-        min: 2, max: 20, start: 10,
+        min: 15, max: 35, start: 10,
+      },
+      {
+        name: 'Seed',
+        min: 1, max: 1024, start: 42
       }
     ],
     generator: gridData
@@ -442,11 +446,15 @@ var demos = [
     options: [
       {
         name: 'Points Per Cluster',
-        min: 1, max: 100, start: 50,
+        min: 15, max: 100, start: 50,
       },
       {
         name: 'Dimensions',
         min: 1, max: 100, start: 2,
+      },
+      {
+        name: 'Seed',
+        min: 1, max: 1024, start: 42
       }
     ],
     generator: twoClustersData
@@ -459,11 +467,15 @@ var demos = [
     options: [
       {
         name: 'Points Per Cluster',
-        min: 1, max: 100, start: 50,
+        min: 15, max: 100, start: 50,
       },
       {
         name: 'Dimensions',
         min: 1, max: 100, start: 2,
+      },
+      {
+        name: 'Seed',
+        min: 1, max: 1024, start: 42
       }
     ],
     generator: threeClustersData
@@ -475,7 +487,7 @@ var demos = [
     options: [
       {
         name: 'Points Per Cluster',
-        min: 1, max: 100, start: 50,
+        min: 15, max: 100, start: 50,
       },
       {
         name: 'Dimensions',
@@ -484,6 +496,10 @@ var demos = [
       {
         name: 'Scale',
         min: 1, max: 10, start: 5,
+      },
+      {
+        name: 'Seed',
+        min: 1, max: 1024, start: 42
       }
     ],
     generator: twoDifferentClustersData
@@ -495,7 +511,11 @@ var demos = [
     options: [
       {
         name: 'Points Per Cluster',
-        min: 1, max: 100, start: 50,
+        min: 15, max: 100, start: 50,
+      },
+      {
+        name: 'Seed',
+        min: 1, max: 1024, start: 42
       }
     ],
     generator: longClusterData
@@ -507,11 +527,15 @@ var demos = [
     options: [
       {
         name: 'Points Per Cluster',
-        min: 1, max: 100, start: 50,
+        min: 15, max: 100, start: 50,
       },
       {
         name: 'Dimensions',
         min: 1, max: 100, start: 2,
+      },
+      {
+        name: 'Seed',
+        min: 1, max: 1024, start: 42
       }
     ],
     generator: subsetClustersData
@@ -523,7 +547,11 @@ var demos = [
     options: [
       {
         name: 'Number Of Points',
-        min: 1, max: 100, start: 50,
+        min: 15, max: 100, start: 50,
+      },
+      {
+        name: 'Seed',
+        min: 1, max: 1024, start: 42
       }
     ],
     generator: circleData
@@ -535,7 +563,11 @@ var demos = [
     options: [
       {
         name: 'Number Of Points',
-        min: 1, max: 100, start: 50,
+        min: 15, max: 100, start: 50,
+      },
+      {
+        name: 'Seed',
+        min: 1, max: 1024, start: 42
       }
     ],
     generator: randomCircleData
@@ -548,11 +580,15 @@ var demos = [
     options: [
       {
         name: 'Number Of Points',
-        min: 1, max: 500, start: 50,
+        min: 15, max: 500, start: 50,
       },
       {
         name: 'Dimensions',
         min: 1, max: 100, start: 2,
+      },
+      {
+        name: 'Seed',
+        min: 1, max: 1024, start: 42
       }
     ],
     generator: gaussianData
@@ -564,11 +600,15 @@ var demos = [
     options: [
       {
         name: 'Number Of Points',
-        min: 1, max: 500, start: 50,
+        min: 15, max: 500, start: 50,
       },
       {
         name: 'Dimensions',
         min: 1, max: 100, start: 2,
+      },
+      {
+        name: 'Seed',
+        min: 1, max: 1024, start: 42
       }
     ],
     generator: longGaussianData
@@ -580,7 +620,11 @@ var demos = [
     options: [
       {
         name: 'Number Of Points',
-        min: 1, max: 200, start: 50,
+        min: 15, max: 200, start: 50,
+      },
+      {
+        name: 'Seed',
+        min: 1, max: 1024, start: 42
       }
     ],
     generator: trefoilData
@@ -592,7 +636,11 @@ var demos = [
     options: [
       {
         name: 'Number Of Points',
-        min: 1, max: 200, start: 50,
+        min: 15, max: 200, start: 50,
+      },
+      {
+        name: 'Seed',
+        min: 1, max: 1024, start: 42
       }
     ],
     generator: linkData
@@ -603,7 +651,11 @@ var demos = [
     options: [
       {
         name: 'Number Of Points',
-        min: 1, max: 200, start: 50,
+        min: 15, max: 200, start: 50,
+      },
+      {
+        name: 'Seed',
+        min: 1, max: 1024, start: 42
       }
     ],
     generator: unlinkData
@@ -615,7 +667,11 @@ var demos = [
     options: [
       {
         name: 'Number Of Points',
-        min: 1, max: 500, start: 50,
+        min: 15, max: 500, start: 50,
+      },
+      {
+        name: 'Seed',
+        min: 1, max: 1024, start: 42
       }
     ],
     generator: orthoCurve
@@ -626,11 +682,15 @@ var demos = [
       'Smoother than you might think.',
       options: [{
         name: 'Number Of Points',
-        min: 1, max: 1000, start: 100,
+        min: 15, max: 1000, start: 100,
       },
       {
         name: 'Dimension',
         min: 1, max: 1000, start: 100,
+      },
+      {
+        name: 'Seed',
+        min: 1, max: 1024, start: 42
       }
     ],
     generator: randomWalk
@@ -641,11 +701,15 @@ var demos = [
     options: [
       {
         name: 'Number Of Points',
-        min: 1, max: 1000, start: 100,
+        min: 15, max: 1000, start: 100,
       },
       {
         name: 'Dimension',
         min: 1, max: 1000, start: 100,
+      },
+      {
+        name: 'Seed',
+        min: 1, max: 1024, start: 42
       }
     ],
     generator: randomJump
@@ -657,7 +721,11 @@ var demos = [
     options: [
       {
         name: 'Number Of Points',
-        min: 2, max: 100, start: 50,
+        min: 15, max: 100, start: 50,
+      },
+      {
+        name: 'Seed',
+        min: 1, max: 1024, start: 42
       }
     ],
     generator: simplexData
@@ -668,11 +736,15 @@ var demos = [
     options: [
       {
         name: 'Number Of Points',
-        min: 2, max: 200, start: 50,
+        min: 15, max: 200, start: 50,
       },
       {
         name: 'Dimensions',
         min: 1, max: 10, start: 3,
+      },
+      {
+        name: 'Seed',
+        min: 1, max: 1024, start: 42
       }
     ],
     generator: cubeData

@@ -4,6 +4,8 @@
   "description": "generate figures for this post",
   "main": "index.js",
   "scripts": {
+    "build": "node index.js",
+    "hack": "cd node_modules/canvas && node bin/node-gyp.js rebuild",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ian Johnson",
@@ -11,6 +13,11 @@
   "dependencies": {
     "async": "^2.0.1",
     "canvas": "^1.5.0",
-    "d3": "^4.2.6"
+    "d3": "^4.2.6",
+    "global": "^4.4.0",
+    "node-gyp": "^6.0.1"
+  },
+  "devDependencies": {
+    "jsdom": "^15.2.1"
   }
 }

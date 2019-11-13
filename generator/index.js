@@ -12,13 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+window = {};
 var d3 = require('d3')
 var fs = require('fs')
-var demoConfigs = require('../assets/demo-configs.js');
-var figureConfigs = require('../assets/figure-configs.js');
-//var tsne = require('../assets/tsne.js');
-var visualize = require('../assets/visualize.js');
-var figures = require('../assets/figures.js');
+var demoConfigs = require('../public/assets/demo-configs.js');
+var figureConfigs = require('../public/assets/figure-configs.js');
+//var tsne = require('../public/assets/tsne.js');
+var visualize = require('../public/assets/visualize.js');
+var figures = require('../public/assets/figures.js');
 var Canvas = require('canvas')
 var async = require('async')
 

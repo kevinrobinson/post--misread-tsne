@@ -29,6 +29,7 @@ function circle(g, x, y, r) {
 // Visualize the given points with the given message.
 // If "no3d" is set, ignore the 3D cue for size.
 function visualize(points, canvas, message, no3d) {
+  // console.log('visualize');
   var width = canvas.width;
   var height = canvas.height;
   var g = canvas.getContext('2d');
