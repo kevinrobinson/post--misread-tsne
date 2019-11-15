@@ -433,10 +433,10 @@ var demos = [
         name: 'Points Per Side',
         min: 15, max: 35, start: 10,
       },
-      {
-        name: 'Seed',
-        min: 1, max: 1024, start: 42
-      }
+      // {
+      //   name: 'Seed',
+      //   min: 1, max: 1024, start: 42
+      // }
     ],
     generator: gridData
   },
@@ -452,18 +452,17 @@ var demos = [
         name: 'Dimensions',
         min: 1, max: 100, start: 2,
       },
-      {
-        name: 'Seed',
-        min: 1, max: 1024, start: 42
-      }
+      // {
+      //   name: 'Seed',
+      //   min: 1, max: 1024, start: 42
+      // }
     ],
     generator: twoClustersData
   },
   {
     name: 'Three Clusters',
     description: 'Three clusters with equal numbers of points, but at ' +
-         'different distances from each other. Cluster distances are ' +
-         'only apparent at certain perplexities',
+         'different distances from each other.',
     options: [
       {
         name: 'Points Per Cluster',
@@ -473,17 +472,17 @@ var demos = [
         name: 'Dimensions',
         min: 1, max: 100, start: 2,
       },
-      {
-        name: 'Seed',
-        min: 1, max: 1024, start: 42
-      }
+      // {
+      //   name: 'Seed',
+      //   min: 1, max: 1024, start: 42
+      // }
     ],
     generator: threeClustersData
   },
   {
     name: 'Two Different-Sized Clusters',
     description: 'Two clusters with equal numbers of points, but different ' +
-        'variances within the clusters. Cluster separation depends on perplexity.',
+        'variances within the clusters.',
     options: [
       {
         name: 'Points Per Cluster',
@@ -497,10 +496,10 @@ var demos = [
         name: 'Scale',
         min: 1, max: 10, start: 5,
       },
-      {
-        name: 'Seed',
-        min: 1, max: 1024, start: 42
-      }
+      // {
+      //   name: 'Seed',
+      //   min: 1, max: 1024, start: 42
+      // }
     ],
     generator: twoDifferentClustersData
   },
@@ -513,17 +512,16 @@ var demos = [
         name: 'Points Per Cluster',
         min: 15, max: 100, start: 50,
       },
-      {
-        name: 'Seed',
-        min: 1, max: 1024, start: 42
-      }
+      // {
+      //   name: 'Seed',
+      //   min: 1, max: 1024, start: 42
+      // }
     ],
     generator: longClusterData
   },
   {
     name: 'Cluster In Cluster',
-    description: 'A dense, tight cluster inside of a wide, sparse cluster. ' +
-      'Perplexity makes a big difference here.',
+    description: 'A dense, tight cluster inside of a wide, sparse cluster. ',
     options: [
       {
         name: 'Points Per Cluster',
@@ -533,10 +531,10 @@ var demos = [
         name: 'Dimensions',
         min: 1, max: 100, start: 2,
       },
-      {
-        name: 'Seed',
-        min: 1, max: 1024, start: 42
-      }
+      // {
+      //   name: 'Seed',
+      //   min: 1, max: 1024, start: 42
+      // }
     ],
     generator: subsetClustersData
   },
@@ -549,10 +547,10 @@ var demos = [
         name: 'Number Of Points',
         min: 15, max: 100, start: 50,
       },
-      {
-        name: 'Seed',
-        min: 1, max: 1024, start: 42
-      }
+      // {
+      //   name: 'Seed',
+      //   min: 1, max: 1024, start: 42
+      // }
     ],
     generator: circleData
   },
@@ -565,10 +563,10 @@ var demos = [
         name: 'Number Of Points',
         min: 15, max: 100, start: 50,
       },
-      {
-        name: 'Seed',
-        min: 1, max: 1024, start: 42
-      }
+      // {
+      //   name: 'Seed',
+      //   min: 1, max: 1024, start: 42
+      // }
     ],
     generator: randomCircleData
   },
@@ -586,10 +584,10 @@ var demos = [
         name: 'Dimensions',
         min: 1, max: 100, start: 2,
       },
-      {
-        name: 'Seed',
-        min: 1, max: 1024, start: 42
-      }
+      // {
+      //   name: 'Seed',
+      //   min: 1, max: 1024, start: 42
+      // }
     ],
     generator: gaussianData
   },
@@ -606,10 +604,10 @@ var demos = [
         name: 'Dimensions',
         min: 1, max: 100, start: 2,
       },
-      {
-        name: 'Seed',
-        min: 1, max: 1024, start: 42
-      }
+      // {
+      //   name: 'Seed',
+      //   min: 1, max: 1024, start: 42
+      // }
     ],
     generator: longGaussianData
   },
@@ -622,10 +620,10 @@ var demos = [
         name: 'Number Of Points',
         min: 15, max: 200, start: 50,
       },
-      {
-        name: 'Seed',
-        min: 1, max: 1024, start: 42
-      }
+      // {
+      //   name: 'Seed',
+      //   min: 1, max: 1024, start: 42
+      // }
     ],
     generator: trefoilData
   },
@@ -638,10 +636,10 @@ var demos = [
         name: 'Number Of Points',
         min: 15, max: 200, start: 50,
       },
-      {
-        name: 'Seed',
-        min: 1, max: 1024, start: 42
-      }
+      // {
+      //   name: 'Seed',
+      //   min: 1, max: 1024, start: 42
+      // }
     ],
     generator: linkData
   },
@@ -653,10 +651,10 @@ var demos = [
         name: 'Number Of Points',
         min: 15, max: 200, start: 50,
       },
-      {
-        name: 'Seed',
-        min: 1, max: 1024, start: 42
-      }
+      // {
+      //   name: 'Seed',
+      //   min: 1, max: 1024, start: 42
+      // }
     ],
     generator: unlinkData
   },
@@ -669,10 +667,10 @@ var demos = [
         name: 'Number Of Points',
         min: 15, max: 500, start: 50,
       },
-      {
-        name: 'Seed',
-        min: 1, max: 1024, start: 42
-      }
+      // {
+      //   name: 'Seed',
+      //   min: 1, max: 1024, start: 42
+      // }
     ],
     generator: orthoCurve
   },
@@ -688,10 +686,10 @@ var demos = [
         name: 'Dimension',
         min: 1, max: 1000, start: 100,
       },
-      {
-        name: 'Seed',
-        min: 1, max: 1024, start: 42
-      }
+      // {
+      //   name: 'Seed',
+      //   min: 1, max: 1024, start: 42
+      // }
     ],
     generator: randomWalk
   },
@@ -707,10 +705,10 @@ var demos = [
         name: 'Dimension',
         min: 1, max: 1000, start: 100,
       },
-      {
-        name: 'Seed',
-        min: 1, max: 1024, start: 42
-      }
+      // {
+      //   name: 'Seed',
+      //   min: 1, max: 1024, start: 42
+      // }
     ],
     generator: randomJump
   },
@@ -723,10 +721,10 @@ var demos = [
         name: 'Number Of Points',
         min: 15, max: 100, start: 50,
       },
-      {
-        name: 'Seed',
-        min: 1, max: 1024, start: 42
-      }
+      // {
+      //   name: 'Seed',
+      //   min: 1, max: 1024, start: 42
+      // }
     ],
     generator: simplexData
   },
@@ -742,10 +740,10 @@ var demos = [
         name: 'Dimensions',
         min: 1, max: 10, start: 3,
       },
-      {
-        name: 'Seed',
-        min: 1, max: 1024, start: 42
-      }
+      // {
+      //   name: 'Seed',
+      //   min: 1, max: 1024, start: 42
+      // }
     ],
     generator: cubeData
   }

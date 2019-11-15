@@ -57,8 +57,8 @@ function main() {
       epsilon: +getParam('epsilon', 5),
       
       nNeighbors: +getParam('nNeighbors', 15),
-      spread: +getParam('spread', 1.0),
-      minDist: +getParam('minDist', 0.1),
+      spread: +getParam('spread', 10),
+      minDist: +getParam('minDist', 10),
 
       seed: +getParam('seed', 42),
       demo: +getParam('demo', 0),
@@ -124,9 +124,9 @@ function main() {
   // umap
   var nNeighborsSlider = makeSlider(tsneUI, 'Nearest neighbors', 5, 45,
       GLOBALS.state.nNeighbors);
-  var minDistSlider = makeSlider(tsneUI, 'Minimal distance', 0.01, 0.25,
+  var minDistSlider = makeSlider(tsneUI, '1000 * Minimal distance', 1, 250,
       GLOBALS.state.minDist);
-  var spreadSlider = makeSlider(tsneUI, 'Spread', -1.0, 10.0,
+  var spreadSlider = makeSlider(tsneUI, '10 * Spread', -10, 100,
       GLOBALS.state.spread);
   // var seedSlider = makeSlider(tsneUI, 'Seed', 1, 1000,
   //     GLOBALS.state.seed);
@@ -149,7 +149,7 @@ function main() {
     GLOBALS.state.minDist = minDistSlider.value;
     GLOBALS.state.spread = spreadSlider.value;
     // GLOBALS.state.seed = seedSlider.value;
-    console.log('GLOBALS.state', GLOBALS.state);
+    // console.log('GLOBALS.state', GLOBALS.state);
 
     d3.select("#share").style("display", "")
       .attr("href", "#" + generateHash())
@@ -262,4 +262,92 @@ function main() {
       }
     }
   })
+
+  document.querySelector('#multiply').addEventListener('click', e => {
+    var el = document.createElement('div');
+    document.querySelector('#playground-multiples').appendChild(el);
+    
+    // share data
+    var points = demo.generator.apply(null, GLOBALS.state.demoParams);
+
+    const base = GLOBALS.state;
+    const nNeighbors = parseInt(base.nNeighbors, 10);
+    const minDist = parseInt(base.minDist, 10);
+    const spread = parseInt(base.spread, 10);
+    const diffs = [-99, -50, -20, -10, -1, 2, 5, 99].map(n => n/100);
+
+    const nMultiples = 6;
+    let n = 0;
+
+    function make() {
+      const state = {
+        ...base,
+        nNeighbors: Math.round(100 * noise(nNeighbors, sample(diffs))) / 100,
+        minDist: Math.round(100 * noise(minDist, sample(diffs))) / 100,
+        spread: Math.round(100 * noise(spread, sample(diffs))) / 100
+      };
+      makeMultiple(el, points, state);
+      n = n + 1;
+
+      if (n < nMultiples) {
+        setTimeout(make, 20);
+      }
+    }
+
+    make();
+  });
+
+  // +/-percentage
+  function noise(value, percentage) {
+    const diff = (Math.random()*(value * percentage * 2)) - (value * percentage);
+    return value + diff;
+  }
+
+  function sample(values) {
+    const index = Math.floor(Math.random() * values.length);
+    return values[index];
+  }
+
+  function makeMultiple(containerEl, points, state) {
+    var el = document.createElement('div');
+    el.classList.add('Multiple');
+    containerEl.appendChild(el);
+
+    // Set up t-SNE and start it running.
+    var canvas = document.createElement('canvas');
+    canvas.style.width = '200px';
+    canvas.width = '200';
+    canvas.style.height = '200px';
+    canvas.height = 200;
+    el.appendChild(canvas);
+
+    // if there was already a playground demo going, lets destroy it and make a new one
+    // if(GLOBALS.playgroundDemo) {
+    //   GLOBALS.playgroundDemo.destroy();
+    //   delete GLOBALS.playgroundDemo;
+    // }
+
+    // const playgroundDemo = 
+    // GLOBALS.state
+    var stateEl = document.createElement('div');
+    el.appendChild(stateEl);
+    el.classList.add('MultipleState');
+    stateEl.textContent = [
+      `nNeighbors: ${state.nNeighbors.toFixed(0)}`,
+      `minDist: ${(state.minDist/1000).toFixed(3)}`,
+      `spread: ${(state.spread/100).toFixed(2)}`
+    ].join('   ');
+
+    //runPlayground(points, canvas, GLOBALS.state, function(step) {
+    const unpausedBefore = GLOBALS.unpausedBefore;
+    const stepLimit = GLOBALS.stepLimit;
+    var stepEl = document.createElement('div');
+    el.appendChild(stepEl);
+    const playgroundDemo = demoMaker(points, canvas, state, function(step) {
+      d3.select(stepEl).text(`step: ${format(step)}`);
+      if(step >= stepLimit && !unpausedBefore) {
+        playgroundDemo.pause();
+      }
+    })
+  }
 }

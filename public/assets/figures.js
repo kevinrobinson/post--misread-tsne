@@ -63,7 +63,7 @@ function demoMaker(points, canvas, options, stepCb) {
   var chunk = 1;
   var frameId;
 
-  console.log('new');
+  // console.log('new');
   var driver = new UmapDriver(options);
   driver.init(points);
 
@@ -112,7 +112,12 @@ function demoMaker(points, canvas, options, stepCb) {
     demo.pause();
     delete demo;
   }
-  iterate();
+  
+  if (!options.paused) {
+    iterate();
+  } else {
+    paused = true;
+  }
   return demo;
 }
 
@@ -157,20 +162,24 @@ var solution = tsne.getSolution().map(function(coords, i) {
   return new Point(coords, points[i].color);
 });
 */
-function UmapDriver(options) {
-  this.options = options || {};
+function UmapDriver(options = {}) {
+  this.options = {
+    ...options,
+    nNeighbors: parseInt(options.nNeighbors, 10),
+    minDist: parseInt(options.minDist, 10)/1000,
+    spread: parseInt(options.spread, 10)/10
+  };
 }
 
 UmapDriver.prototype = {
   init: function(points) {
-    console.log('init', this.options);
     this.umap = new UMAP(this.options);
+    // console.log('umap', this.umap, this.options);
     this.umap.initializeFit(points.map(p => p.coords));
     return;
   },
 
   step: function() {
-    console.log('step');
     this.umap.step();
     return;
   },
@@ -192,7 +201,6 @@ TsneDriver.prototype = {
   },
 
   step: function() {
-    console.log('step');
     this.tsne.step();
     return;
   },
